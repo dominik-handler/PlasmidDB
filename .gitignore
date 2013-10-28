@@ -21,3 +21,5 @@
 .env
 .foreman
 Procfile
+
+resources/
