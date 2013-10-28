@@ -11,15 +11,49 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028115436) do
+ActiveRecord::Schema.define(:version => 20131028153956) do
+
+  create_table "attachments", :force => true do |t|
+    t.string   "name"
+    t.integer  "plasmid_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  create_table "authors", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0,  :null => false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "username"
+  end
+
+  add_index "authors", ["email"], :name => "index_authors_on_email", :unique => true
+  add_index "authors", ["reset_password_token"], :name => "index_authors_on_reset_password_token", :unique => true
 
   create_table "plasmids", :force => true do |t|
     t.string   "name"
     t.string   "internal_id"
     t.integer  "author_id"
     t.hstore   "info"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.string   "plasmid_map_file_name"
+    t.string   "plasmid_map_content_type"
+    t.integer  "plasmid_map_file_size"
+    t.datetime "plasmid_map_updated_at"
   end
 
   add_index "plasmids", ["info"], :name => "index_plasmids_on_info"
