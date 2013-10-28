@@ -14,6 +14,7 @@
 /log/*.log
 /tmp
 /public
+/log
 
 .rvmrc
 ## ignore the current .env and .foreman files
