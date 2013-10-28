@@ -39,7 +39,7 @@ class LabLifeParser
         plasmid_field = doc.css('.IVY_FIELD_is_plasmid_map');
 
         plasmid_field.children.search("img").each_with_index do |img, i|
-          agent.get(img.attributes["src"]).save("#{name}/plasmid/#{i}.jpg");
+          agent.get(img.attributes["src"]).save("resources/#{name}/plasmid/#{i}.jpg");
         end
 
         ## find and download attachments
