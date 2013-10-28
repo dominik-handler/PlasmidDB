@@ -1,4 +1,6 @@
 LabLife::Application.routes.draw do
+  devise_for :authors
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
