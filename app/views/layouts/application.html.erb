@@ -7,6 +7,27 @@
   <%= csrf_meta_tags %>
 </head>
   <body>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="#">BrenneckeLab - PlasmidArchive</a>
+
+            <ul class="nav">
+              <li><a href="<%= plasmids_path %>">Plasmids</a></li>
+            </ul>
+
+            <div class="pull-right">
+              <% if author_signed_in? %>
+                <ul class="nav">
+                  <li><a class="author_name" href="#"><%= current_author.username %></a></li>
+                </ul>
+                <a class="btn btn-danger btn-logout" href="<%= destroy_author_session_path %>">Sign out</a>
+              <% end %>
+            </div>
+
+          </div>
+        </div>
+      </div>
     <div class="container">
       <%= render partial: "shared/flash_messages", flash: flash %>
       <%= yield %>

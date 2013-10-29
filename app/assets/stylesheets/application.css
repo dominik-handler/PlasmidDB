@@ -12,3 +12,48 @@
  *= require_self
  *= require_tree .
  */
+
+.sign-up-panel {
+  width: 540px;
+  margin: 0 auto 25px auto;
+  padding-top: 50px;
+}
+
+.sign-up-panel .well {
+  padding: 0px;
+}
+
+.sign-up-panel header {
+  background: url(https://d3levm2kxut31z.cloudfront.net/assets/panel-header-bg-35fb45c403daf2b1189557c28ce03a0d.png) no-repeat top;
+  padding: 25px 0;
+}
+
+.panel-header-text {
+  color: #343131;
+  text-align: center;
+  font-size: 2.5em;
+  text-transform: uppercase;
+}
+
+.inside-panel {
+  padding: 34px 83px;
+}
+
+.inside-panel p {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 25px;
+  line-height: 22px;
+}
+
+.btn-sign-in {
+  float: right;
+}
+
+.sign-up-terms {
+  width: 350px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.85em;
+  line-height: 22px;
+}

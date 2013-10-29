@@ -1,4 +1,7 @@
 class PlasmidsController < ApplicationController
+
+  before_filter :authenticate_author!
+
   def index
     @plasmids = Plasmid.all
 
