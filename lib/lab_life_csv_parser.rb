@@ -12,6 +12,7 @@ class LabLifeCSVParser
     contents.each_with_index do |data, i|
       if i > 0
         tmp = {};
+
         data.each do |k,v|
           adjusted_name = k.to_s.split(".").last;
           tmp[adjusted_name] = v if valid_fields.include?(adjusted_name);
@@ -20,6 +21,7 @@ class LabLifeCSVParser
         p = Plasmid.create(:name => tmp["name"], :internal_id => tmp["alt_name_id"]);
         p.author = Author.find_by_username(tmp["entered_by"].split.last.downcase)
         p.info = tmp.select { |k,v| ["name", "alt_name_id", "entered_by"].include?(k) == false}
+        p.save
 
         ## attach the plasmid map file to the plasmid_map field
         ## by definition we can only have one plasmid_map per entry, thus if there are multiple we just overwrite the previous one
@@ -27,6 +29,7 @@ class LabLifeCSVParser
           plasmid_image_data = File.open(f)
           p.plasmid_map = plasmid_image_data
           plasmid_image_data.close
+          p.save
         end if File.exists?("resources/#{tmp["alt_name_id"]}/plasmid/")
 
         ## and now attach everything else..
