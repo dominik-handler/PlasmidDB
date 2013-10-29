@@ -3,7 +3,7 @@ class PlasmidsController < ApplicationController
   before_filter :authenticate_author!
 
   def index
-    @plasmids = Plasmid.all
+    @plasmids = Plasmid.all.sort
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,6 +22,8 @@ class PlasmidsController < ApplicationController
 
   def new
     @plasmid = Plasmid.new
+    @plasmid.internal_id = get_next_available_id()
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -29,8 +31,16 @@ class PlasmidsController < ApplicationController
     end
   end
 
+  def get_next_available_id
+    last_plasmid = Plasmid.all.sort.last
+    value = last_plasmid.nil? "JB000" : last_plasmid.internal_id
+    return value.next
+  end
+
   def create
     @plasmid = Plasmid.new(params[:plasmid])
+    @plasmid.author = current_author
+    @plasmid.internal_id = get_next_available_id()
 
     respond_to do |format|
       if @plasmid.save
