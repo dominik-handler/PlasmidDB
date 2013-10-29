@@ -24,6 +24,8 @@ class PlasmidsController < ApplicationController
     @plasmid = Plasmid.new
     @plasmid.internal_id = get_next_available_id()
 
+    ## init 3 attachment slots
+    3.times { @plasmid.attachments.build }
 
     respond_to do |format|
       format.html # new.html.erb
