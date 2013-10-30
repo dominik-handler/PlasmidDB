@@ -83,3 +83,5 @@ gem 'google-webfonts-rails'
 ## search via sunspot solr
 gem 'sunspot_solr'
 gem 'sunspot_rails'
+## solr uses progressbar
+gem 'progressbar'

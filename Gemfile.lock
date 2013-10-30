@@ -166,6 +166,7 @@ GEM
     polyglot (0.3.3)
     posix-spawn (0.3.6)
     pr_geohash (1.0.0)
+    progressbar (0.21.0)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -322,6 +323,7 @@ DEPENDENCIES
   mechanize
   paperclip
   pg
+  progressbar
   rails (= 3.2.13)
   rails_config
   rb-readline (~> 0.4.2)

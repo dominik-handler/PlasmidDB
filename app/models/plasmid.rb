@@ -10,10 +10,8 @@ class Plasmid < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, :reject_if => lambda { |t| t['file'].nil? }
 
   searchable do
-    text :name do
-      name.downcase
-    end
-
-    text :internal_id
+    text :name, :as => :name_txtwc
+    text :internal_id, :as => :internal_id_txtwc
+    text :internal_id, :as => :internal_id_txtwc
   end
 end
