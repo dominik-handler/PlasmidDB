@@ -1,3 +1,48 @@
 // Place all the styles related to the Plasmids controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+td.show-row-title {
+  font-weight: bold;
+  padding: 14px;
+  width: 35%;
+}
+
+td.show-row-value {
+  padding: 14px;
+}
+
+.show-row-editable a {
+  position: relative;
+  top: 6px;
+  left: 7px;
+}
+
+.show-row-editable .editable-container.editable-inline {
+  width: 100%;
+}
+
+.show-row-editable .editable-input {
+  width: 83%;
+}
+
+.show-row-editable .editable-input input {
+  width: 93%;
+}
+
+.notes-well .editable-input {
+  width: 90%;
+}
+
+.textarea-full-width {
+  width: 95%;
+}
+
+.notes-well .editable-container.editable-inline {
+  width: 100%;
+}
+
+.thumb-plasmid {
+  margin-left: 10px;
+  margin-top: 20px;
+}

@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="span12 index-container">
+    <div class="form-well-box">
+      <div class="form-well-title">
+        <span class="icon"><i class="icon-th-list"></i></span>
+        <h5>Edit Plasmid</h5>
+        <div class="buttons">
+          <%= link_to icon("Back to Index", :list, :white), plasmids_path, :class => "btn btn-mini btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-well-content">
+      <h2>Info</h2>
+      <table class="table table-bordered table-striped">
+        <tr>
+          <td class="show-row-title">Plasmid ID</td>
+          <td class="show-row-value"><%= @plasmid.internal_id %></td>
+        </tr>
+        <tr>
+          <td class="show-row-title">Plasmid Name</td>
+          <td class="show-row-editable"><%= link_to @plasmid.name.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name=> "name", :url => "/plasmids/#{@plasmid.id}" } %></td>
+        </tr>
+        <tr>
+          <td class="show-row-title">Entered By</td>
+          <td class="show-row-value"><%= @plasmid.author.username %></td>
+        </tr>
+
+        <% @plasmid.info.sort.each do |key, value| %>
+          <% next if ["notes", "entered_by"].include?(key) %>
+          <tr>
+            <td class="show-row-title"><%= key_to_name(key) %></td>
+            <td class="show-row-editable"><%= link_to value.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name => "info", :pk => key, :url => "/plasmids/#{@plasmid.id}" } %></td>
+          </tr>
+        <% end %>
+
+        <tr>
+          <td class="show-row-title"></td>
+          <td class="show-row-value"></td>
+        </tr>
+      </table>
+
+      <HR>
+
+      <h2>Notes</h2>
+      <div class="well notes-well">
+        <%= link_to @plasmid.info.fetch("notes") {""}.html_safe, "#", :class => "editable-textarea", :data => { :type => "textarea", :model => "plasmid", :name=> "info", :pk => "notes", :url => "/plasmids/#{@plasmid.id}" } %>
+      </div>
+
+      <HR>
+
+      <div class="row">
+        <div class="span6">
+          <%= link_to image_tag( @plasmid.plasmid_map.url(:thumb), :class => "popin thumb-plasmid"), @plasmid.plasmid_map.url %>
+        </div>
+        <div class="span5">
+          <h3>Attached files</h3>
+          <ul>
+          <% @plasmid.attachments.each do |attachment| %>
+            <li> <%= link_to "#{attachment.name} (#{number_to_human_size(attachment.file.size)})", attachment.file.url %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

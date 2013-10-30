@@ -3,7 +3,7 @@ class PlasmidsController < ApplicationController
   before_filter :authenticate_author!
 
   def index
-    @plasmids = Plasmid.all.sort_by(&:internal_id)
+    @plasmids = Plasmid.all.sort_by(&:internal_id).reverse
 
     respond_to do |format|
       format.html # index.html.erb
@@ -57,16 +57,34 @@ class PlasmidsController < ApplicationController
 
   def update
     @plasmid = Plasmid.find(params[:id])
+    pars = parse_params(params)
 
     respond_to do |format|
-      if @plasmid.update_attributes(params[:plasmid])
+      if @plasmid.update_attributes(pars[:plasmid])
         format.html { redirect_to @plasmid, notice: 'Plasmid was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :json => @plasmid, :status => :ok }
       else
         format.html { render action: "edit" }
         format.json { render json: @plasmid.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def parse_params(params)
+    p = params
+
+    if p["name"] == "info"
+      data = @plasmid.info
+      data[p["pk"]] = p["value"]
+
+      @plasmid.info = data
+      @plasmid.save
+
+      ## take out the hstore related variables from params
+      p = p.select { |key, value| ["name", "pk", "value"].include?(key) == false }
+    end
+
+    return p
   end
 
 
