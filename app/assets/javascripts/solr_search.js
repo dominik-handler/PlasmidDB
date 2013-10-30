@@ -22,6 +22,16 @@ jQuery(function($) {
           item = data[idx];
           container.append(construct_plasmid_index_item(item));
         });
+
+        // pull in the new value
+        var searchTerm = currVal;
+        // remove any old highlighted terms
+        $('body').removeHighlight();
+        // disable highlighting if empty
+        if ( searchTerm ) {
+            // highlight the new term
+            $('body').highlight( searchTerm );
+        }
       },
       error: function(data) {
         alert('blah error')
