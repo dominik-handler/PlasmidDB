@@ -76,3 +76,6 @@ gem 'mechanize'
 ## enable x-editable inplace editing
 gem 'bootstrap-wysihtml5-rails'
 gem 'select2-rails'
+
+## google webfonts
+gem 'google-webfonts-rails'

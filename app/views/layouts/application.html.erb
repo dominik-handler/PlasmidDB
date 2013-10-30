@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= google_webfonts_init({ google: ['Open Sans:400,700'] }) %>
   <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
   <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>
 
@@ -12,7 +13,7 @@
   <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/wysiwyg-color.css" rel="stylesheet"/>
   <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/inputs-ext/wysihtml5/wysihtml5.js"></script>
 </head>
-  <body>
+  <body style="font-family:Open Sans;">
       <div class="navbar">
         <div class="navbar-inner">
           <div class="container">
