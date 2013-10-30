@@ -72,3 +72,7 @@ gem 'rails_config'
 
 gem 'devise'
 gem 'mechanize'
+
+## enable x-editable inplace editing
+gem 'bootstrap-wysihtml5-rails'
+gem 'select2-rails'

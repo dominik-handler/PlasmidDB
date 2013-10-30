@@ -10,6 +10,8 @@
  *
  *= require formtastic-bootstrap
  *= require_self
+ *= require bootstrap-wysihtml5
+ *= require select2
  *= require_tree .
  */
 
