@@ -87,6 +87,30 @@ class PlasmidsController < ApplicationController
     return p
   end
 
+  def filter_index
+    filter = params[:filter]
+
+    solr_search = Plasmid.search do
+      fulltext filter
+      paginate :per_page => 9999
+    end
+
+    results = solr_search.results.sort.reverse
+
+    hits = Hash.new
+    results.each_with_index { |r,i|
+      hits[i] = Hash.new
+      hits[i]["id"] = r.id
+      hits[i]["internal_id"] = r.internal_id
+      hits[i]["plasmid_name"] = r.name.html_safe
+      hits[i]["gene_insert"] = r.info.fetch("gene_insert") { "n/a" }
+      hits[i]["author"] = r.author.username
+      hits[i]["time_added"] = r.updated_at.strftime("%d/%m/%Y")
+    }
+
+    render :json => hits
+  end
+
 
   def destroy
     @plasmid = Plasmid.find(params[:id])

@@ -11,3 +11,7 @@ textarea {
 .form-well-content .editable-click, a.edtiable-click, a.editable-click:hover {
   border-bottom: none;
 }
+
+.table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
+  background-color: #f0f0f0;
+}

@@ -9,7 +9,7 @@
       <div class="span6">
         <div class="form-search">
           <input type="text" class="input-medium search-query">
-          <button type="submit" class="btn">Search</button>
+          <button class="btn btn-search">Search</button>
         </div>
       </div>
     </div>
@@ -20,6 +20,7 @@
       </div>
       <div class="form-well-content">
         <table class="table table-striped">
+          <thead>
           <tr>
             <th>ID</th>
             <th>Name</th>
@@ -28,17 +29,20 @@
             <th>Modified</th>
             <th></th>
           </tr>
+          </thead>
 
-        <% @plasmids.each do |plasmid| %>
-          <tr>
-            <td><%= plasmid.internal_id %></td>
-            <td><%= link_to plasmid.name.html_safe, plasmid_path(plasmid) %></td>
-            <td><%= plasmid.info.fetch("gene_insert") { "n/a" } %></td>
-            <td><%= plasmid.author.username %></td>
-            <td><%= plasmid.updated_at.strftime("%d/%m/%Y") %></td>
-            <td><%= link_to icon("", :trash, :white), plasmid, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-mini" %></td>
-          </tr>
-        <% end %>
+          <tbody>
+          <% @plasmids.each do |plasmid| %>
+            <tr>
+              <td><b><%= plasmid.internal_id %></b></td>
+              <td><%= link_to plasmid.name.html_safe, plasmid_path(plasmid) %></td>
+              <td><%= plasmid.info.fetch("gene_insert") { "n/a" } %></td>
+              <td><%= plasmid.author.username %></td>
+              <td><%= plasmid.updated_at.strftime("%d/%m/%Y") %></td>
+              <td><%= link_to icon("", :trash, :white), plasmid, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-mini" %></td>
+            </tr>
+          <% end %>
+        </tbody>
         </table>
       </div>
     </div>

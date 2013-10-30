@@ -79,3 +79,7 @@ gem 'select2-rails'
 
 ## google webfonts
 gem 'google-webfonts-rails'
+
+## search via sunspot solr
+gem 'sunspot_solr'
+gem 'sunspot_rails'

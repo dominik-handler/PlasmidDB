@@ -8,4 +8,12 @@ class Plasmid < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
 
   accepts_nested_attributes_for :attachments, :reject_if => lambda { |t| t['file'].nil? }
+
+  searchable do
+    text :name do
+      name.downcase
+    end
+
+    text :internal_id
+  end
 end
