@@ -11,16 +11,24 @@ class LabLifeCSVParser
 
     contents.each_with_index do |data, i|
       if i > 0
+        items = {}
         tmp = {};
 
+        ## adjust keys
         data.each do |k,v|
           adjusted_name = k.to_s.split(".").last;
-          tmp[adjusted_name] = v if valid_fields.include?(adjusted_name);
+          tmp[adjusted_name] = v
         end
 
-        p = Plasmid.create(:name => tmp["name"], :internal_id => tmp["alt_name_id"]);
+        ## now initialize a hash with all settings, ignore name, alt_name_id and entered_by
+        @valid_fields.each do |item|
+          next if ["name", "alt_name_id", "entered_by"].include?(item)
+          items[item] = tmp.fetch(item) { "" }
+        end
+
+        p = Plasmid.new(:name => tmp["name"], :internal_id => tmp["alt_name_id"]);
         p.author = Author.find_by_username(tmp["entered_by"].split.last.downcase)
-        p.info = tmp.select { |k,v| ["name", "alt_name_id", "entered_by"].include?(k) == false}
+        p.update_attributes(items)
         p.save
 
         ## attach the plasmid map file to the plasmid_map field

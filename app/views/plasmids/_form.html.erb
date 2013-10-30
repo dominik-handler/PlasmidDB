@@ -19,7 +19,6 @@
 
         <div class="form-well-content">
           <%= f.inputs do %>
-          <%= f.semantic_fields_for :info do |d| %>
 
           <div class="row">
             <div class="span2">
@@ -31,11 +30,11 @@
             </div>
 
             <div class="span3">
-              <%= d.input :backbone, :hint => "Enter backbone information" %>
+              <%= f.input :backbone, :hint => "Enter backbone information" %>
             </div>
 
             <div class="span3">
-              <%= d.input :gene_insert, :hint => "Enter Gene/Insert information", :input_html => { :style => "width:100%;" } %>
+              <%= f.input :gene_insert, :hint => "Enter Gene/Insert information", :input_html => { :style => "width:100%;" } %>
             </div>
           </div>
 
@@ -43,19 +42,19 @@
 
           <div class="row">
             <div class="span2">
-              <%= d.input :promoter, :hint => "Enter promoter name", :input_html => { :class => "input-small" } %>
+              <%= f.input :promoter, :hint => "Enter promoter name", :input_html => { :class => "input-small" } %>
             </div>
 
             <div class="span3">
-              <%= d.input :species, :hint => "Select the correct species" %>
+              <%= f.input :species, :hint => "Select the correct species" %>
             </div>
 
             <div class="span3">
-              <%= d.input :dna_concentration, :hint => "Specify DNA Concentration" %>
+              <%= f.input :dna_concentration, :hint => "Specify DNA Concentration" %>
             </div>
 
             <div class="span3">
-              <%= d.input :mutations_deletions, :hint => "Enter Mutation/Deletion information", :input_html => { :style => "width:100%;" }%>
+              <%= f.input :mutations_deletions, :hint => "Enter Mutation/Deletion information", :input_html => { :style => "width:100%;" }%>
             </div>
           </div>
 
@@ -63,19 +62,19 @@
 
           <div class="row">
             <div class="span2">
-              <%= d.input :tag_1, :hint => "Enter Tag1", :input_html => { :class => "input-small" } %>
+              <%= f.input :tag_1, :hint => "Enter Tag1", :input_html => { :class => "input-small" } %>
             </div>
 
             <div class="span4">
-              <%= d.input :location_of_tag_1, :hint => "Specify location of Tag1", :input_html => { :style => "width:75%;" } %>
+              <%= f.input :location_of_tag_1, :hint => "Specify location of Tag1", :input_html => { :style => "width:75%;" } %>
             </div>
 
             <div class="span2">
-              <%= d.input :tag_2, :hint => "Enter Tag2", :input_html => { :class => "input-small" } %>
+              <%= f.input :tag_2, :hint => "Enter Tag2", :input_html => { :class => "input-small" } %>
             </div>
 
             <div class="span3">
-              <%= d.input :location_of_tag_2, :hint => "Specify location of Tag2", :input_html => { :style => "width:100%;" } %>
+              <%= f.input :location_of_tag_2, :hint => "Specify location of Tag2", :input_html => { :style => "width:100%;" } %>
             </div>
           </div>
 
@@ -83,19 +82,19 @@
 
           <div class="row">
             <div class="span3">
-              <%= d.input :bacterial_resistance, :hint => "Enter bacterial resistance" %>
+              <%= f.input :bacterial_resistance, :hint => "Enter bacterial resistance" %>
             </div>
 
             <div class="span3">
-              <%= d.input :bacterial_resistance_other, :hint => "Addtional information" %>
+              <%= f.input :bacterial_resistance_other, :hint => "Addtional information" %>
             </div>
 
             <div class="span3">
-              <%= d.input :selectable_marker, :hint => "Specify selectable marker" %>
+              <%= f.input :selectable_marker, :hint => "Specify selectable marker" %>
             </div>
 
             <div class="span2">
-              <%= d.input :selectable_marker_other, :hint => "Additional information", :input_html => { :style => "width:100%;" } %>
+              <%= f.input :selectable_marker_other, :hint => "Additional information", :input_html => { :style => "width:100%;" } %>
             </div>
           </div>
 
@@ -103,15 +102,15 @@
 
           <div class="row">
             <div class="span5">
-              <%= d.input :reference, :hint => "Specify reference", :input_html => { :style => "width:75%;"} %>
+              <%= f.input :reference, :hint => "Specify reference", :input_html => { :style => "width:75%;"} %>
             </div>
 
             <div class="span4">
-              <%= d.input :source, :hint => "Enter source information", :input_html => { :style => "width:83%;"} %>
+              <%= f.input :source, :hint => "Enter source information", :input_html => { :style => "width:83%;"} %>
             </div>
 
             <div class="span2">
-              <%= d.input :source_specify, :hint => "Additional information", :input_html => { :style => "width:100%;" } %>
+              <%= f.input :source_specify, :hint => "Additional information", :input_html => { :style => "width:100%;" } %>
             </div>
           </div>
 
@@ -119,7 +118,7 @@
 
           <div class="row">
             <div class="span7">
-              <%= d.input :special_growth_conditions, :hint => "Specify growth conditions", :input_html => { :style => "width:90%;"} %>
+              <%= f.input :special_growth_conditions, :hint => "Specify growth conditions", :input_html => { :style => "width:90%;"} %>
             </div>
 
             <div class="span3">
@@ -134,7 +133,6 @@
             <% end %>
           <% end %>
 
-          <% end %>
           <% end %>
         </div>
       </div>

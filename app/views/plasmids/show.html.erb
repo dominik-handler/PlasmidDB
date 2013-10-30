@@ -11,41 +11,34 @@
     </div>
 
     <div class="form-well-content">
-      <h2>Info</h2>
-      <table class="table table-bordered table-striped">
-        <tr>
-          <td class="show-row-title">Plasmid ID</td>
-          <td class="show-row-value"><%= @plasmid.internal_id %></td>
-        </tr>
-        <tr>
-          <td class="show-row-title">Plasmid Name</td>
-          <td class="show-row-editable"><%= link_to @plasmid.name.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name=> "name", :url => "/plasmids/#{@plasmid.id}" } %></td>
-        </tr>
-        <tr>
-          <td class="show-row-title">Entered By</td>
-          <td class="show-row-value"><%= @plasmid.author.username %></td>
-        </tr>
-
-        <% @plasmid.info.sort.each do |key, value| %>
-          <% next if ["notes", "entered_by"].include?(key) %>
+        <h2>Info</h2>
+        <table class="table table-bordered table-striped">
           <tr>
-            <td class="show-row-title"><%= key_to_name(key) %></td>
-            <td class="show-row-editable"><%= link_to value.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name => "info", :pk => key, :url => "/plasmids/#{@plasmid.id}" } %></td>
+            <td class="show-row-title">Plasmid ID</td>
+            <td class="show-row-value"><%= @plasmid.internal_id %></td>
           </tr>
-        <% end %>
+          <tr>
+            <td class="show-row-title">Plasmid Name</td>
+            <td class="show-row-editable"><%= link_to @plasmid.name.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name=> "name", :pk => "editable", :url => "/plasmids/#{@plasmid.id}" } %></td>
+          </tr>
+          <tr>
+            <td class="show-row-title">Entered By</td>
+            <td class="show-row-value"><%= @plasmid.author.username %></td>
+          </tr>
 
-        <tr>
-          <td class="show-row-title"></td>
-          <td class="show-row-value"></td>
-        </tr>
-      </table>
-
-      <HR>
-
-      <h2>Notes</h2>
-      <div class="well notes-well">
-        <%= link_to @plasmid.info.fetch("notes") {""}.html_safe, "#", :class => "editable-textarea", :data => { :type => "textarea", :model => "plasmid", :name=> "info", :pk => "notes", :url => "/plasmids/#{@plasmid.id}" } %>
-      </div>
+          <% @plasmid.attributes.sort.each do |key, value| %>
+            <% next if ["created_at", "updated_at", "id", "author_id", "notes", "entered_by", "info", "plasmid_map_file_name", "plasmid_map_content_type", "plasmid_map_file_size", "plasmid_map_updated_at"].include?(key) %>
+            <tr>
+              <td class="show-row-title"><%= key_to_name(key) %></td>
+              <td class="show-row-editable"><%= link_to value.to_s.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name => key, :pk => "editable", :url => "/plasmids/#{@plasmid.id}" } %></td>
+            </tr>
+          <% end %>
+          </table>
+        <HR>
+        <h2>Notes</h2>
+        <div class="well notes-well">
+          <%= link_to (@plasmid.notes || "").html_safe, "#", :class => "editable-textarea", :data => { :type => "textarea", :model => "plasmid", :name=> "notes", :pk => "editable", :url => "/plasmids/#{@plasmid.id}" } %>
+        </div>
 
       <HR>
 

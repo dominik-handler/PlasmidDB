@@ -57,7 +57,8 @@ class PlasmidsController < ApplicationController
 
   def update
     @plasmid = Plasmid.find(params[:id])
-    pars = parse_params(params)
+    pars = params
+    pars = wrap_params(pars) if params[:pk] == "editable"
 
     respond_to do |format|
       if @plasmid.update_attributes(pars[:plasmid])
@@ -70,21 +71,10 @@ class PlasmidsController < ApplicationController
     end
   end
 
-  def parse_params(params)
-    p = params
-
-    if p["name"] == "info"
-      data = @plasmid.info
-      data[p["pk"]] = p["value"]
-
-      @plasmid.info = data
-      @plasmid.save
-
-      ## take out the hstore related variables from params
-      p = p.select { |key, value| ["name", "pk", "value"].include?(key) == false }
-    end
-
-    return p
+  def wrap_params(params)
+    pars = {}
+    pars[:plasmid] = { params["name"] => params ["value"] }
+    return pars
   end
 
   def filter_index
