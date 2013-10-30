@@ -23,5 +23,5 @@
 Procfile
 
 resources/
-solr/
+solr/data
 config/sunspot.yml
