@@ -1,7 +1,12 @@
 jQuery(function($) {
-  $('.btn-search').click(function(e) {
+  $('.search-query').keyup(function(e) {
     text = $('.search-query').val();
-    refresh_index(text);
+    if(text.length > 2) {
+      refresh_index(text);
+    }
+    else if (text.length == 0) {
+      refresh_index("*");
+    }
   });
 
   function refresh_index(currVal) {
@@ -25,7 +30,7 @@ jQuery(function($) {
   }
 
   function construct_plasmid_index_item(item) {
-    html = '<tr><td><b>' + item.internal_id + '</b></td><td>' + item.plasmid_name + '</td><td>' + item.gene_insert + '</td><td>' + item.author + '</td><td>' + item.time_added + '</td>';
+    html = '<tr><td><b>' + item.internal_id + '</b></td><td><a href="/plasmids/' + item.id + '">' + item.plasmid_name + '</a></td><td>' + item.gene_insert + '</td><td>' + item.author + '</td><td>' + item.time_added + '</td>';
     html += '<td><a href="/plasmids/' + item.id + '" class="btn btn-danger btn-mini" data-confirm="Are you sure?" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i></a>\n'
     return html;
   }

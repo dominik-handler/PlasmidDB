@@ -89,13 +89,18 @@ class PlasmidsController < ApplicationController
 
   def filter_index
     filter = params[:filter]
+    results = []
 
-    solr_search = Plasmid.search do
-      fulltext filter
-      paginate :per_page => 9999
+    if filter == "*"
+      results = Plasmid.all.sort.reverse
+    else
+      solr_search = Plasmid.search do
+        fulltext filter
+        paginate :per_page => 9999
+      end
+
+      results = solr_search.results.sort.reverse
     end
-
-    results = solr_search.results.sort.reverse
 
     hits = Hash.new
     results.each_with_index { |r,i|
