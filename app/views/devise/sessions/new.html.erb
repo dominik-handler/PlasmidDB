@@ -8,7 +8,7 @@
       <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
         <%= f.text_field :username, :autofocus => true, :placeholder => :username, :class => 'input-large' %>
         <%= f.submit "Sign in", :class => "btn btn-success btn-sign-in" %>
-        <%= f.password_field :password, :value => "none", :style => "display:none;" %>
+        <%= f.text_field :password, :value => "none", :style => "display:none;" %>
       <% end %>
     </div>
   </div>
