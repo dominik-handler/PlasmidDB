@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span12 index-container">
     <%= semantic_form_for @plasmid, :html => { :multipart => true } do |f| %>
-      <%= f.semantic_errors %>
+      <%= f.semantic_errors *f.object.errors.keys %>
        <div class="form-well-box">
         <div class="form-well-title">
           <span class="icon"><i class="icon-th-list"></i></span>

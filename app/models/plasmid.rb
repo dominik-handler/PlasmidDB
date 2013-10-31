@@ -10,6 +10,12 @@ class Plasmid < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, :reject_if => lambda { |t| t['file'].nil? }
 
+  validates :name, :presence => true
+  validates :internal_id, :uniqueness => true
+  validates :author_id, :presence => true
+  validates :gene_insert, :presence => true
+  validates :bacterial_resistance, :presence => true
+
   searchable do
     text :name, :as => :name_txtwc
     text :internal_id, :as => :internal_id_txtwc
