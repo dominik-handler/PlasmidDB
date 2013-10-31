@@ -36,7 +36,7 @@
             <tr>
               <td><b><%= plasmid.internal_id %></b></td>
               <td><%= link_to plasmid.name.html_safe, plasmid_path(plasmid) %></td>
-              <td><%= plasmid.info.fetch("gene_insert") { "n/a" } %></td>
+              <td><%= plasmid.gene_insert %></td>
               <td><%= plasmid.author.username %></td>
               <td><%= plasmid.updated_at.strftime("%d/%m/%Y") %></td>
               <td><%= link_to icon("", :trash, :white), plasmid, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-mini" %></td>
