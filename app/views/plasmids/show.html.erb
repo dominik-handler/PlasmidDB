@@ -27,7 +27,7 @@
           </tr>
 
           <% @plasmid.attributes.sort.each do |key, value| %>
-            <% next if ["created_at", "updated_at", "id", "author_id", "notes", "entered_by", "info", "plasmid_map_file_name", "plasmid_map_content_type", "plasmid_map_file_size", "plasmid_map_updated_at"].include?(key) %>
+            <% next if ["name", "internal_id", "created_at", "updated_at", "id", "author_id", "notes", "entered_by", "info", "plasmid_map_file_name", "plasmid_map_content_type", "plasmid_map_file_size", "plasmid_map_updated_at"].include?(key) %>
             <tr>
               <td class="show-row-title"><%= key_to_name(key) %></td>
               <td class="show-row-editable"><%= link_to value.to_s.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name => key, :pk => "editable", :url => "/plasmids/#{@plasmid.id}" } %></td>
