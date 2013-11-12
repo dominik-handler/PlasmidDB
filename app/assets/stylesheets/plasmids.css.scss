@@ -2,6 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.additional-attachment-label {
+  position:relative;
+  left: 20px;
+  margin-bottom: 15px;
+}
+
+.additional-attachment-info {
+  position:relative;
+  left: 20px;
+  top: 10px;
+}
+
 .error label {
   font-weight: bold;
 }

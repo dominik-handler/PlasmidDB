@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span12 index-container">
+  <div class="span12 index-container new-plasmid">
     <%= semantic_form_for @plasmid, :html => { :multipart => true } do |f| %>
       <%= f.semantic_errors *f.object.errors.keys %>
        <div class="form-well-box">
@@ -30,11 +30,11 @@
             </div>
 
             <div class="span3">
-              <%= f.input :backbone, :hint => "Enter backbone information" %>
+              <%= f.input :backbone, :hint => "(e.g. PacMan, GLKD1)" %>
             </div>
 
             <div class="span3">
-              <%= f.input :gene_insert, :hint => "Enter Gene/Insert information", :input_html => { :style => "width:100%;" } %>
+              <%= f.input :gene_insert, :hint => "(e.g. CG2183, bTub85D_EGFP)", :input_html => { :style => "width:93%;" }, :wrapper_html => { :style => "width:125%;" }  %>
             </div>
           </div>
 
@@ -42,11 +42,11 @@
 
           <div class="row">
             <div class="span2">
-              <%= f.input :promoter, :hint => "Enter promoter name", :input_html => { :class => "input-small" } %>
+              <%= f.input :promoter, :hint => "(e.g. act5c, nos)", :input_html => { :class => "input-small" } %>
             </div>
 
             <div class="span3">
-              <%= f.input :species, :hint => "Select the correct species" %>
+              <%= f.input :species, :hint => "(e.g. Drosophila melanogaster )" %>
             </div>
 
             <div class="span3">
@@ -54,7 +54,7 @@
             </div>
 
             <div class="span3">
-              <%= f.input :mutations_deletions, :hint => "Enter Mutation/Deletion information", :input_html => { :style => "width:100%;" }%>
+              <%= f.input :mutations_deletions, :hint => "Enter Mutation/Deletion information", :input_html => { :style => "width:93%;" }, :wrapper_html => { :style => "width:125%;" }%>
             </div>
           </div>
 
@@ -62,19 +62,19 @@
 
           <div class="row">
             <div class="span2">
-              <%= f.input :tag_1, :hint => "Enter Tag1", :input_html => { :class => "input-small" } %>
+              <%= f.input :tag_1, :hint => "(e.g. GST, 6xHis)", :input_html => { :class => "input-small" } %>
             </div>
 
             <div class="span4">
-              <%= f.input :location_of_tag_1, :hint => "Specify location of Tag1", :input_html => { :style => "width:75%;" } %>
+              <%= f.input :location_of_tag_1, :hint => "(e.g. 'N terminal on backbone')", :input_html => { :style => "width:75%;" } %>
             </div>
 
             <div class="span2">
-              <%= f.input :tag_2, :hint => "Enter Tag2", :input_html => { :class => "input-small" } %>
+              <%= f.input :tag_2, :hint => "(e.g. GST, 6xHis)", :input_html => { :class => "input-small" } %>
             </div>
 
             <div class="span3">
-              <%= f.input :location_of_tag_2, :hint => "Specify location of Tag2", :input_html => { :style => "width:100%;" } %>
+              <%= f.input :location_of_tag_2, :hint => "(e.g. 'C terminal on backbone')", :input_html => { :style => "width:93%;" }, :wrapper_html => { :style => "width:125%;" } %>
             </div>
           </div>
 
@@ -82,11 +82,11 @@
 
           <div class="row">
             <div class="span3">
-              <%= f.input :bacterial_resistance, :hint => "Enter bacterial resistance" %>
+              <%= f.input :bacterial_resistance, :hint => "(e.g. Ampicillin )" %>
             </div>
 
             <div class="span3">
-              <%= f.input :bacterial_resistance_other, :hint => "Addtional information" %>
+              <%= f.input :bacterial_resistance_other, :hint => "(e.g. Neomycin)" %>
             </div>
 
             <div class="span3">
@@ -94,23 +94,23 @@
             </div>
 
             <div class="span2">
-              <%= f.input :selectable_marker_other, :hint => "Additional information", :input_html => { :style => "width:100%;" } %>
+              <%= f.input :selectable_marker_other, :hint => "(e.g. 'mini white')", :input_html => { :style => "width:100%;" }, :wrapper_html => { :style => "width:125%;" } %>
             </div>
           </div>
 
           <HR>
 
           <div class="row">
-            <div class="span5">
-              <%= f.input :reference, :hint => "Specify reference", :input_html => { :style => "width:75%;"} %>
+            <div class="span4">
+              <%= f.input :glycerol_stock, :hint => "Glycerol stock", :input_html => { :style => "width:75%;"} %>
             </div>
 
             <div class="span4">
-              <%= f.input :source, :hint => "Enter source information", :input_html => { :style => "width:83%;"} %>
+              <%= f.input :source, :hint => "(e.g. Created in Lab, Gift)", :input_html => { :style => "width:83%;"} %>
             </div>
 
-            <div class="span2">
-              <%= f.input :source_specify, :hint => "Additional information", :input_html => { :style => "width:100%;" } %>
+            <div class="span3">
+              <%= f.input :source_specify, :hint => "(e.g. Siomi Lab, DGRC)", :input_html => { :style => "width:93%;" }, :wrapper_html => { :style => "width:125%;" } %>
             </div>
           </div>
 
@@ -122,16 +122,39 @@
             </div>
 
             <div class="span3">
-              <%= f.input :plasmid_map, :hint => "Attach the log file." %>
+              <%= f.input :plasmid_map, :hint => "Attach image in png format" %>
             </div>
           </div>
 
           <HR>
+
+          <div class="row">
+            <div class="span12">
+              <%= f.input :reference, :as => :text, :hint => "", :input_html => { :style => "width:95%;height:200px;"}, :placeholder => "e.g. Site-specific gene integration in cultured silkworm cells mediated by uC31 integrase Mol Gen Genomics (2006)" %>
+            </div>
+          </div>
+
+          <HR>
+
+          <div class="row">
+            <div class="span12">
+              <%= f.input :notes, :hint => "Misc notes", :input_html => { :style => "width:95%;height:200px;"} %>
+            </div>
+          </div>
+
+          <HR>
+
+          <div class="row">
+            <label class="control-label additional-attachment-label">Additional attachments</label>
           <%= f.semantic_fields_for :attachments do |s| %>
             <% if s.object.new_record? %>
-              <% s.file_field :file %>
+              <div class="span4">
+                <%= s.file_field :file %>
+              </div>
             <% end %>
           <% end %>
+            <span class="help-block additional-attachment-info">Attach up to 3 files (e.g. SeqBuilder files)</span>
+          </div>
 
           <% end %>
         </div>
