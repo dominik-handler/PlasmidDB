@@ -116,4 +116,27 @@ class PlasmidsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def remove_image
+    @plasmid = Plasmid.find(params[:plasmid_id])
+    @plasmid.plasmid_map.destroy
+    @plasmid.save
+
+    respond_to do |format|
+      format.html { redirect_to plasmid_path(@plasmid), alert: 'Plasmid map was successfully removed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def remove_attachment
+    @plasmid = Plasmid.find(params[:plasmid_id])
+    @attachment = @plasmid.attachments.find(params[:attachment])
+    @attachment.destroy
+    @plasmid.save
+
+    respond_to do |format|
+      format.html { redirect_to plasmid_path(@plasmid), alert: 'Plasmid attachment was successfully removed.' }
+      format.json { head :no_content }
+    end
+  end
 end

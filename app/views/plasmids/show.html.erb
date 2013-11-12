@@ -47,19 +47,30 @@
 
       <HR>
 
+      <%= semantic_form_for @plasmid, :html => { :multipart => true } do |f| %>
+        <h2>Files <%= link_to icon("Save files", :upload, :white), '#', :onclick => "$('form').submit()", :class => "btn btn-success btn-save-files" %></h2>
       <div class="row">
         <div class="span6">
-          <%= link_to image_tag( @plasmid.plasmid_map.url(:thumb), :class => "popin thumb-plasmid"), @plasmid.plasmid_map.url %>
+          <h3>Plasmid Map
+              <%= link_to icon("", :trash, :white), plasmid_remove_image_path(@plasmid), :class => "btn btn-danger btn-delete-image #{@plasmid.plasmid_map.url.start_with?("http://placehold.it") ? "disabled" : "" }" %>
+          </h3>
+          <% if @plasmid.plasmid_map.url.start_with?("http://placehold.it") %>
+            <%= f.input :plasmid_map, :hint => "Attach image in png format" %>
+          <% else %>
+            <%= link_to image_tag( @plasmid.plasmid_map.url(:thumb), :class => "popin thumb-plasmid"), @plasmid.plasmid_map.url %>
+          <% end %>
         </div>
         <div class="span5">
           <h3>Attached files</h3>
-          <ul>
+          <ul style="position: relative; top:21px;">
           <% @plasmid.attachments.each do |attachment| %>
-            <li> <%= link_to "#{attachment.file_file_name} (#{number_to_human_size(attachment.file.size)})", attachment.file.url %></li>
+            <li> <%= link_to "#{attachment.file_file_name} (#{number_to_human_size(attachment.file.size)})", attachment.file.url %> <%= link_to icon("", :trash, :black), plasmid_remove_attachment_path(@plasmid, :attachment => attachment.id), :class => "btn-delete-attachment" %> </li>
           <% end %>
           </ul>
         </div>
       </div>
+      <% end %>
+      <HR>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 class Plasmid < ActiveRecord::Base
-  attr_accessible :author_id, :info, :internal_id, :name, :plasmid_map, :attachments_attributes
+  attr_accessible :author_id, :info, :internal_id, :name, :plasmid_map, :attachments_attributes, :glycerol_stock
   attr_accessible :backbone, :gene_insert, :species, :promoter, :mutations_deletions, :tag_1, :location_of_tag_1, :tag_2, :location_of_tag_2, :bacterial_resistance, :bacterial_resistance_other, :selectable_marker, :selectable_marker_other, :special_growth_conditions, :reference, :source, :source_specify, :notes, :dna_concentration
   serialize :info, ActiveRecord::Coders::Hstore
 

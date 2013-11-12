@@ -2,6 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.btn-save-files {
+  float: right;
+  position: relative;
+}
+
+.btn-delete-attachment {
+  float: right;
+  position: relative;
+  top: 2px;
+  right: -40px;
+}
+
+.btn-delete-image {
+  float: right;
+  position: relative;
+  top: 8px;
+  right: 50px;
+}
+
 .additional-attachment-label {
   position:relative;
   left: 20px;
