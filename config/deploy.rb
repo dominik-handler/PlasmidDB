@@ -30,7 +30,7 @@ set :keep_releases, 3
 namespace :backups do
   desc "restore from newest backup"
   task :restore, :roles => :app do
-    run("sudo stop nginx")
+    run("sudo stop nginx || true")
     run("cd '#{current_path}' && #{rake} backup:restore")
     run("sudo start nginx")
   end
@@ -61,12 +61,12 @@ application_sidekiq_index = 0
 namespace :sidekiq do
   desc "stop sidekiq"
    task :stop, :roles => :sidekiq, :on_no_matching_servers => :continue do
-     run "sudo stop sidekiq app=#{current_path} index=#{application_sidekiq_index}"
+     run "sudo stop sidekiq app=#{current_path} index=#{application_sidekiq_index} || true"
    end
 
   desc "sidekiq status"
   task :status, :roles => :sidekiq, :on_no_matching_servers => :continue do
-     run "sudo status sidekiq app=#{current_path} index=#{application_sidekiq_index}"
+     run "sudo status sidekiq app=#{current_path} index=#{application_sidekiq_index} || true"
   end
 
   desc "start sidekiq"

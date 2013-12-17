@@ -13,6 +13,7 @@ development:
   host: localhost
   username: postgres
   password: postgres
+  template: template0
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -36,4 +37,4 @@ production:
   host: localhost
   username: lablife
   password: lablife
-  template: template1
+  template: template0
