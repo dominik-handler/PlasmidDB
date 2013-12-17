@@ -30,9 +30,10 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: lablife
+  database: lablife_production
   pool: 5
   timeout: 5000
   host: localhost
-  username: oligodb
-  password: oligodb
+  username: lablife
+  password: lablife
+  template: template1
