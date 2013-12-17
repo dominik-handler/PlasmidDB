@@ -1,0 +1,2 @@
+scheduler: daemon --inherit --name=clockwork_lablife --env=RAILS_ENV=production --output=/home/lablife/shared/log/clockwork.log --pidfile=/home/lablife/current/tmp/pids/clockwork.pid -D /home/lablife/current -- bundle exec clockwork config/clock.rb
+solr: daemon -U --inherit --name=solr_lablife --env=RAILS_ENV=production --output=/home/lablife/shared/log/solr.log --pidfile=/home/lablife/current/tmp/pids/solr.pid -D /home/lablife/current -- bundle exec sunspot-solr run -p 8983 -s /home/lablife/current/solr/ -d /home/lablife/current/solr/data/
