@@ -56,7 +56,7 @@ namespace :deploy do
   end
 end
 
-application_sidekiq_index = 1
+application_sidekiq_index = 0
 
 namespace :sidekiq do
   desc "stop sidekiq"
