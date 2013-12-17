@@ -1,0 +1,3 @@
+application_name: 'plasmiddb'
+local_backup_path: '/groups/brennecke/apps/backups/'
+local_storage_path: '/groups/brennecke/apps/plasmiddb/'

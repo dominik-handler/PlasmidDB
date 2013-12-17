@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="span12 index-container show-plasmid">
+    <div class="form-well-box">
+      <div class="form-well-title">
+        <span class="icon"><i class="icon-th-list"></i></span>
+        <h5>Edit Plasmid</h5>
+        <div class="buttons">
+          <%= link_to icon("Back to Index", :list, :white), plasmids_path, :class => "btn btn-mini btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-well-content">
+        <h2>Info</h2>
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td class="show-row-title">Plasmid ID</td>
+            <td class="show-row-value"><%= @plasmid.internal_id %></td>
+          </tr>
+          <tr>
+            <td class="show-row-title">Plasmid Name</td>
+            <td class="show-row-editable"><%= link_to @plasmid.name.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name=> "name", :pk => "editable", :url => "/plasmids/#{@plasmid.id}" } %></td>
+          </tr>
+          <tr>
+            <td class="show-row-title">Entered By</td>
+            <td class="show-row-value"><%= @plasmid.author.username %></td>
+          </tr>
+
+          <% @plasmid.attributes.sort.each do |key, value| %>
+            <% next if ["name", "reference", "internal_id", "created_at", "updated_at", "id", "author_id", "notes", "entered_by", "info", "plasmid_map_file_name", "plasmid_map_content_type", "plasmid_map_file_size", "plasmid_map_updated_at"].include?(key) %>
+            <tr>
+              <td class="show-row-title"><%= key_to_name(key) %></td>
+              <td class="show-row-editable"><%= link_to value.to_s.html_safe, "#", :class => "editable", :data => { :type => "text", :model => "plasmid", :name => key, :pk => "editable", :url => "/plasmids/#{@plasmid.id}" } %></td>
+            </tr>
+          <% end %>
+          </table>
+        <HR>
+        <h2>Reference</h2>
+        <div class="well notes-well">
+          <%= link_to (@plasmid.reference || "").html_safe, "#", :class => "editable-textarea", :data => { :type => "textarea", :model => "plasmid", :name=> "reference", :pk => "editable", :url => "/plasmids/#{@plasmid.id}" } %>
+        </div>
+        <HR>
+        <h2>Notes</h2>
+        <div class="well notes-well">
+          <%= link_to (@plasmid.notes || "").html_safe, "#", :class => "editable-textarea", :data => { :type => "textarea", :model => "plasmid", :name=> "notes", :pk => "editable", :url => "/plasmids/#{@plasmid.id}" } %>
+        </div>
+
+      <HR>
+
+      <%= semantic_form_for @plasmid, :html => { :multipart => true } do |f| %>
+        <h2>Files <%= link_to icon("Save files", :upload, :white), '#', :onclick => "$('form').submit()", :class => "btn btn-success btn-save-files" %></h2>
+      <div class="row">
+        <div class="span6">
+          <h3>Plasmid Map
+              <%= link_to icon("", :trash, :white), plasmid_remove_image_path(@plasmid), :class => "btn btn-danger btn-delete-image #{@plasmid.plasmid_map.url.start_with?("http://placehold.it") ? "disabled" : "" }" %>
+          </h3>
+          <% if @plasmid.plasmid_map.url.start_with?("http://placehold.it") %>
+            <%= f.input :plasmid_map, :hint => "Attach image in png format", :input_html => { :class => "edit-attachments" } %>
+          <% else %>
+            <%= link_to image_tag( @plasmid.plasmid_map.url(:thumb), :class => "popin thumb-plasmid"), @plasmid.plasmid_map.url %>
+          <% end %>
+        </div>
+        <div class="span5">
+          <h3>Attached files</h3>
+          <ul style="position: relative; top:21px;">
+          <% @plasmid.attachments.each do |attachment| %>
+            <% next if attachment.new_record? %>
+            <li style="margin-top:10px;"> <%= link_to "#{attachment.file_file_name} (#{number_to_human_size(attachment.file.size)})", attachment.file.url %> <%= link_to icon("", :trash, :black), plasmid_remove_attachment_path(@plasmid, :attachment => attachment.id), :class => "btn-delete-attachment" %> </li>
+          <% end %>
+          <%= f.semantic_fields_for :attachments do |s| %>
+            <% if s.object.new_record? %>
+              <li><%= s.file_field :file, :class => "edit-attachments" %></li>
+            <% end %>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+      <% end %>
+      <HR>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+application_name: 'plasmiddb-production'
+sidekiq_redis_url: 'redis://localhost:6379/7'

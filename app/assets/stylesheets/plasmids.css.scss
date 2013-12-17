@@ -1,3 +1,105 @@
 // Place all the styles related to the Plasmids controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.existing-attachment {
+  margin-top: 10px;
+}
+
+.btn-save-files {
+  float: right;
+  position: relative;
+}
+
+.btn-delete-attachment {
+  float: right;
+  position: relative;
+  top: 2px;
+  right: -40px;
+}
+
+.btn-delete-image {
+  float: right;
+  position: relative;
+  top: 8px;
+  right: 50px;
+}
+
+.additional-attachment-label {
+  position:relative;
+  left: 20px;
+  margin-bottom: 15px;
+}
+
+.additional-attachment-info {
+  position:relative;
+  left: 20px;
+  top: 10px;
+}
+
+.error label {
+  font-weight: bold;
+}
+
+.form-search {
+  float: right;
+}
+
+td.show-row-title {
+  font-weight: bold;
+  padding: 14px;
+  width: 35%;
+}
+
+td.show-row-value {
+  padding: 14px;
+}
+
+.show-row-editable a {
+  position: relative;
+  top: 6px;
+  left: 7px;
+}
+
+.show-row-editable .editable-container.editable-inline {
+  width: 100%;
+}
+
+.show-row-editable .editable-input {
+  width: 83%;
+}
+
+.show-row-editable .editable-input input {
+  width: 93%;
+}
+
+.notes-well .editable-input {
+  width: 90%;
+}
+
+.textarea-full-width {
+  width: 95%;
+}
+
+.notes-well .editable-container.editable-inline {
+  width: 100%;
+}
+
+.thumb-plasmid {
+  margin-left: 10px;
+  margin-top: 20px;
+}
+.highlight {
+    background-color: #fff34d;
+    -moz-border-radius: 5px; /* FF1+ */
+    -webkit-border-radius: 5px; /* Saf3-4 */
+    border-radius: 5px; /* Opera 10.5, IE 9, Saf5, Chrome */
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* FF3.5+ */
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* Saf3.0+, Chrome */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* Opera 10.5+, IE 9.0 */
+}
+ 
+.highlight {
+    padding:1px 4px;
+    margin:0 -4px;
+}

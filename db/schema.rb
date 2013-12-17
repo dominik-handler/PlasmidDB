@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028153956) do
+ActiveRecord::Schema.define(:version => 20131112113954) do
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
@@ -48,12 +48,32 @@ ActiveRecord::Schema.define(:version => 20131028153956) do
     t.string   "internal_id"
     t.integer  "author_id"
     t.hstore   "info"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "plasmid_map_file_name"
     t.string   "plasmid_map_content_type"
     t.integer  "plasmid_map_file_size"
     t.datetime "plasmid_map_updated_at"
+    t.string   "backbone"
+    t.string   "gene_insert"
+    t.string   "species"
+    t.string   "promoter"
+    t.string   "mutations_deletions"
+    t.string   "tag_1"
+    t.string   "location_of_tag_1"
+    t.string   "tag_2"
+    t.string   "location_of_tag_2"
+    t.string   "bacterial_resistance"
+    t.string   "bacterial_resistance_other"
+    t.string   "selectable_marker"
+    t.string   "selectable_marker_other"
+    t.string   "special_growth_conditions"
+    t.string   "reference"
+    t.string   "source"
+    t.string   "source_specify"
+    t.text     "notes"
+    t.string   "dna_concentration"
+    t.string   "glycerol_stock",             :default => ""
   end
 
   add_index "plasmids", ["info"], :name => "index_plasmids_on_info"

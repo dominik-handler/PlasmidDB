@@ -72,3 +72,16 @@ gem 'rails_config'
 
 gem 'devise'
 gem 'mechanize'
+
+## enable x-editable inplace editing
+gem 'bootstrap-wysihtml5-rails'
+gem 'select2-rails'
+
+## google webfonts
+gem 'google-webfonts-rails'
+
+## search via sunspot solr
+gem 'sunspot_solr'
+gem 'sunspot_rails'
+## solr uses progressbar
+gem 'progressbar'
