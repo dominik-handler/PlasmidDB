@@ -30,7 +30,7 @@ set :keep_releases, 3
 namespace :backups do
   desc "restore from newest backup"
   task :restore, :roles => :app do
-    run("sudo stop nginx")
+    run("sudo stop nginx || true")
     run("cd '#{current_path}' && #{rake} backup:restore")
     run("sudo start nginx")
   end
@@ -51,22 +51,45 @@ namespace :deploy do
 
   task :stop do ; end
 
-  task :restart, :roles => :app, :except => { :no_release => true } do
-   run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  # Ask whether to reindex before restarting Passenger
+  task :restart, :roles => :app, :except => {:no_release => true} do
+    solr.reindex if 'y' == Capistrano::CLI.ui.ask("\n\n Should I reindex all models? (anything but y will cancel)")
+    run "touch #{File.join(current_path, 'tmp', 'restart.txt')}"
+  end
+
+  desc 'create shared data and pid dirs for Solr'
+  task :setup_solr_shared_dirs do
+    # conf dir is not shared as different versions need different configs
+    %w(data pids).each do |path|
+      run "mkdir -p #{shared_path}/solr/#{path}"
+    end
+  end
+
+
+  desc 'substituses current_path/solr/data and pids with symlinks to the shared dirs'
+  task :link_to_solr_shared_dirs do
+    %w(solr/data solr/pids).each do |solr_path|
+      run "rm -fr #{current_path}/#{solr_path}" #removing might not be necessary with proper .gitignore setup
+      run "ln -s #{shared_path}/#{solr_path} #{current_path}/#{solr_path}"
+    end
   end
 end
+
+after 'deploy:setup', 'deploy:setup_solr_shared_dirs'
+# rm and symlinks every time we finished uploading code and symlinking to the new release
+after 'deploy:update', 'deploy:link_to_solr_shared_dirs'
 
 application_sidekiq_index = 0
 
 namespace :sidekiq do
   desc "stop sidekiq"
    task :stop, :roles => :sidekiq, :on_no_matching_servers => :continue do
-     run "sudo stop sidekiq app=#{current_path} index=#{application_sidekiq_index}"
+     run "sudo stop sidekiq app=#{current_path} index=#{application_sidekiq_index} || true"
    end
 
   desc "sidekiq status"
   task :status, :roles => :sidekiq, :on_no_matching_servers => :continue do
-     run "sudo status sidekiq app=#{current_path} index=#{application_sidekiq_index}"
+     run "sudo status sidekiq app=#{current_path} index=#{application_sidekiq_index} || true"
   end
 
   desc "start sidekiq"
@@ -93,8 +116,8 @@ namespace :clockwork do
 
   desc "clockwork status"
   task :status, :roles => :clockwork, :on_no_matching_servers => :continue do
-      run "daemon --inherit --name=clockwork_lablife --env='#{rails_env}' --output=#{log_file} --pidfile=#{pid_file} -D #{current_path} --verbose --running || true"
-    end
+    run "daemon --inherit --name=clockwork_lablife --env='#{rails_env}' --output=#{log_file} --pidfile=#{pid_file} -D #{current_path} --verbose --running || true"
+  end
 
   desc "Start clockwork"
   task :start, :roles => :clockwork, :on_no_matching_servers => :continue do
@@ -124,3 +147,45 @@ after "deploy:stop", "clockwork:stop"
 after "deploy:start", "clockwork:start"
 after "deploy:restart", "clockwork:restart"
 
+# Tasks to interact with Solr and SunSpot
+namespace :solr do
+  desc "start solr"
+  task :start, :roles => :app, :except => { :no_release => true } do
+    run "daemon -U --inherit --name=solr_lablife --env='#{rails_env}' --output=#{log_file} --pidfile=#{pid_file} -D #{current_path} -- bundle exec sunspot-solr run -p 8983 -s #{current_path}/solr/ -d #{current_path}/solr/data/"
+  end
+
+  desc "stop solr"
+  task :stop, :roles => :app, :except => { :no_release => true } do
+    run "daemon -U --inherit --name=solr_lablife --env='#{rails_env}' --output=#{log_file} --pidfile=#{pid_file} -D #{current_path} --stop || true"
+  end
+
+  desc "solr status"
+  task :status, :roles => :app, :except => { :no_release => true } do
+    run "daemon -U --inherit --name=solr_lablife --env='#{rails_env}' --output=#{log_file} --pidfile=#{pid_file} -D #{current_path} --verbose --running || true"
+  end
+
+  desc "stop solr, remove data, start solr, reindex all records"
+  task :hard_reindex, :roles => :app do
+    stop
+    run "rm -rf #{shared_path}/solr/data/*"
+    start
+    reindex
+  end
+
+  desc "simple reindex" #note the yes | reindex to avoid the nil.chomp error
+  task :reindex, roles: :app do
+    run "cd #{current_path} && yes | #{rails_env} bundle exec rake sunspot:solr:reindex"
+  end
+
+  def rails_env
+    fetch(:rails_env, false) ? "RAILS_ENV=#{fetch(:rails_env)}" : ''
+  end
+
+  def log_file
+    fetch(:solr_log_file, "#{shared_path}/log/solr.log")
+  end
+
+  def pid_file
+    fetch(:solr_pid_file, "#{current_path}/tmp/pids/solr.pid")
+  end
+end
