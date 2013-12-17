@@ -1,2 +1,3 @@
-application_name: 'plasmiddb-dev'
+application_name: 'lablife-dev'
 sidekiq_redis_url: 'redis://localhost:6380/7'
+backup_root: '/groups/brennecke/apps/backups/lablife'

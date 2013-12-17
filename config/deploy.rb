@@ -37,9 +37,9 @@ namespace :backups do
 end
 
 before "backups:restore", "sidekiq:stop"
-#before "backups:restore", "clockwork:stop"
+before "backups:restore", "clockwork:stop"
 after "backups:restore", "sidekiq:start"
-#after "backups:restore", "clockwork:start"
+after "backups:restore", "clockwork:start"
 
 namespace :deploy do
   desc "Symlink shared/* files"
@@ -56,7 +56,7 @@ namespace :deploy do
   end
 end
 
-application_sidekiq_index = 1
+application_sidekiq_index = 0
 
 namespace :sidekiq do
   desc "stop sidekiq"
@@ -84,3 +84,43 @@ end
 after "deploy:stop", "sidekiq:stop"
 after "deploy:start", "sidekiq:start"
 after "deploy:restart", "sidekiq:restart"
+
+namespace :clockwork do
+  desc "Stop clockwork"
+   task :stop, :roles => :clockwork, :on_no_matching_servers => :continue do
+     run "daemon --inherit --name=clockwork_lablife --env='#{rails_env}' --output=#{log_file} --pidfile=#{pid_file} -D #{current_path} --stop || true"
+   end
+
+  desc "clockwork status"
+  task :status, :roles => :clockwork, :on_no_matching_servers => :continue do
+      run "daemon --inherit --name=clockwork_lablife --env='#{rails_env}' --output=#{log_file} --pidfile=#{pid_file} -D #{current_path} --verbose --running || true"
+    end
+
+  desc "Start clockwork"
+  task :start, :roles => :clockwork, :on_no_matching_servers => :continue do
+    run "daemon --inherit --name=clockwork_lablife --env='#{rails_env}' --output=#{log_file} --pidfile=#{pid_file} -D #{current_path} -- bundle exec clockwork config/clock.rb"
+  end
+
+  desc "Restart clockwork"
+  task :restart, :roles => :clockwork, :on_no_matching_servers => :continue do
+    stop
+    start
+  end
+
+  def rails_env
+    fetch(:rails_env, false) ? "RAILS_ENV=#{fetch(:rails_env)}" : ''
+  end
+
+  def log_file
+    fetch(:clockwork_log_file, "#{shared_path}/log/clockwork.log")
+  end
+
+  def pid_file
+    fetch(:clockwork_pid_file, "#{current_path}/tmp/pids/clockwork.pid")
+  end
+end
+
+after "deploy:stop", "clockwork:stop"
+after "deploy:start", "clockwork:start"
+after "deploy:restart", "clockwork:restart"
+

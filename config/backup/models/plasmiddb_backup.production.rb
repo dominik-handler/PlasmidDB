@@ -6,7 +6,7 @@
 #
 # $ backup perform -t oligodb_backup [-c <path_to_configuration_file>]
 #
-Backup::Model.new(:plasmiddb_backup, 'Backup of plasmidDB') do
+Backup::Model.new(:lablife_production_backup, 'PlasmidDB backup') do
   ##
   # Split [Splitter]
   #
@@ -40,8 +40,7 @@ Backup::Model.new(:plasmiddb_backup, 'Backup of plasmidDB') do
   archive :my_archive do |archive|
     # Run the `tar` command using `sudo`
     # archive.use_sudo
-    archive.root "/home/jurczak/lablife/LabLife"
-    archive.add "config/"
+    archive.root "/home/lablife/current"
     archive.add "public/"
   end
 
@@ -49,9 +48,9 @@ Backup::Model.new(:plasmiddb_backup, 'Backup of plasmidDB') do
   # PostgreSQL [Database]
   #
   database PostgreSQL do |db|
-    db.name               = "lablife_dev"
-    db.username           = "postgres"
-    db.password           = "postgres"
+    db.name               = "lablife_production"
+    db.username           = "lablife"
+    db.password           = "lablife"
     db.host               = "localhost"
   end
 
@@ -59,7 +58,7 @@ Backup::Model.new(:plasmiddb_backup, 'Backup of plasmidDB') do
   # Local (Copy) [Storage]
   #
   store_with Local do |local|
-    local.path       = "/groups/brennecke/apps/backups/plasmiddb"
+    local.path       = "/groups/brennecke/apps/backups/lablife"
     local.keep       = 5
   end
 
