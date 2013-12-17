@@ -27,3 +27,8 @@ body {
 .new-plasmid hr {
   width: 97%;
 }
+
+input[type="file"].edit-attachments {
+  line-height: 0px;
+  margin-top: 10px;
+}

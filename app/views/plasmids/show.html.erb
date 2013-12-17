@@ -55,7 +55,7 @@
               <%= link_to icon("", :trash, :white), plasmid_remove_image_path(@plasmid), :class => "btn btn-danger btn-delete-image #{@plasmid.plasmid_map.url.start_with?("http://placehold.it") ? "disabled" : "" }" %>
           </h3>
           <% if @plasmid.plasmid_map.url.start_with?("http://placehold.it") %>
-            <%= f.input :plasmid_map, :hint => "Attach image in png format" %>
+            <%= f.input :plasmid_map, :hint => "Attach image in png format", :input_html => { :class => "edit-attachments" } %>
           <% else %>
             <%= link_to image_tag( @plasmid.plasmid_map.url(:thumb), :class => "popin thumb-plasmid"), @plasmid.plasmid_map.url %>
           <% end %>
@@ -64,7 +64,13 @@
           <h3>Attached files</h3>
           <ul style="position: relative; top:21px;">
           <% @plasmid.attachments.each do |attachment| %>
-            <li> <%= link_to "#{attachment.file_file_name} (#{number_to_human_size(attachment.file.size)})", attachment.file.url %> <%= link_to icon("", :trash, :black), plasmid_remove_attachment_path(@plasmid, :attachment => attachment.id), :class => "btn-delete-attachment" %> </li>
+            <% next if attachment.new_record? %>
+            <li style="margin-top:10px;"> <%= link_to "#{attachment.file_file_name} (#{number_to_human_size(attachment.file.size)})", attachment.file.url %> <%= link_to icon("", :trash, :black), plasmid_remove_attachment_path(@plasmid, :attachment => attachment.id), :class => "btn-delete-attachment" %> </li>
+          <% end %>
+          <%= f.semantic_fields_for :attachments do |s| %>
+            <% if s.object.new_record? %>
+              <li><%= s.file_field :file, :class => "edit-attachments" %></li>
+            <% end %>
           <% end %>
           </ul>
         </div>

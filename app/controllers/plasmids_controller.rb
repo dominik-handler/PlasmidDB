@@ -14,6 +14,9 @@ class PlasmidsController < ApplicationController
   def show
     @plasmid = Plasmid.find(params[:id])
 
+    ## init 3 attachment slots
+    (3 - @plasmid.attachments.count).times { @plasmid.attachments.build }
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @plasmid }
