@@ -6,7 +6,7 @@
 #
 # $ backup perform -t oligodb_backup [-c <path_to_configuration_file>]
 #
-Backup::Model.new(:plasmiddb_production_backup, 'PlasmidDB backup') do
+Backup::Model.new(:lablife_production_backup, 'PlasmidDB backup') do
   ##
   # Split [Splitter]
   #
@@ -58,7 +58,7 @@ Backup::Model.new(:plasmiddb_production_backup, 'PlasmidDB backup') do
   # Local (Copy) [Storage]
   #
   store_with Local do |local|
-    local.path       = "/groups/brennecke/apps/backups/plasmiddb"
+    local.path       = "/groups/brennecke/apps/backups/lablife"
     local.keep       = 5
   end
 
