@@ -36,15 +36,16 @@ namespace :backups do
   end
 end
 
+before "backups:restore", "solr:stop"
 before "backups:restore", "sidekiq:stop"
 before "backups:restore", "clockwork:stop"
 after "backups:restore", "sidekiq:start"
 after "backups:restore", "clockwork:start"
+after "backups:restore", "solr:hard_reindex"
 
 namespace :deploy do
   desc "Symlink shared/* files"
   task :symlink_shared, :roles => :app do
-    #run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
 
   task :start do ; end
