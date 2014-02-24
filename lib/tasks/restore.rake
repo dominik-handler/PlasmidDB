@@ -4,8 +4,8 @@ require 'shell_command'
 namespace :backup do
   desc "restores app state from a backup file"
   task :restore => :environment do
-    database_name = "lablife_production"
-    path_to_app = "/home/lablife/current"
+    path_to_app = File.expand_path(File.dirname(__FILE__))
+    database_name = Rails.configuration.database_configuration[Rails.env]["database"]
 
     files = Dir["#{Settings.backup_root}/lablife_#{Rails.env}_backup/*"]
     files = files.sort_by { |a| File.stat(a).mtime }
