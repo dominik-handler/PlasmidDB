@@ -27,6 +27,7 @@ test:
   host: localhost
   username: postgres
   password: postgres
+  template: template0
 
 production:
   adapter: postgresql
