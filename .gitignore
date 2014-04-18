@@ -30,3 +30,5 @@ solr/default
 solr/development
 solr/test
 config/sunspot.yml
+
+config/database.yml
