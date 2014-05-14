@@ -7,8 +7,7 @@ raise "Tokens file is missing, can't deploy" unless File.exists?("config/tokens.
 tokens = YAML.load(File.open("config/tokens.yml", &:read))
 
 default_run_options[:env] = {
-  "RAILS_ENV" => "production",
-  "ROLLBAR_ACCESS_TOKEN" => tokens["ROLLBAR_ACCESS_TOKEN"]
+  "RAILS_ENV" => "production"
 }
 
 set :application, "lab_life"
@@ -51,11 +50,18 @@ after "backups:restore", "clockwork:start"
 after "backups:restore", "solr:hard_reindex"
 
 before 'bundle:install', 'deploy:symlink_db'
+before 'bundle:install', 'deploy:setenv'
 
 namespace :deploy do
   desc "Symlink database.yml"
   task :symlink_db, :roles => :app do
     run "ln -nfs #{release_path}/config/database.yml.org #{release_path}/config/database.yml"
+  end
+
+  desc "Set ENV variables"
+  task :setenv, :roles => :app do
+    env_string = tokens.map { |key,value| "#{key}=#{value}" }.join("\n")
+    run "echo '#{env_string}' >> #{release_path}/.env"
   end
 
   task :start do ; end
