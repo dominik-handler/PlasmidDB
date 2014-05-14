@@ -32,3 +32,6 @@ solr/test
 config/sunspot.yml
 
 config/database.yml
+
+*.swp
+*.swo
