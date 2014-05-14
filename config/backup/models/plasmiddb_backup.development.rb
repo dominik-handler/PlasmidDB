@@ -40,7 +40,7 @@ Backup::Model.new(:lablife_development_backup, 'PlasmidDB backup') do
   archive :my_archive do |archive|
     # Run the `tar` command using `sudo`
     # archive.use_sudo
-    archive.root "/home/jurczak/lablife/LabLife"
+    archive.root ENV['APP_ROOT']
     archive.add "config/"
     archive.add "public/"
   end
@@ -59,8 +59,8 @@ Backup::Model.new(:lablife_development_backup, 'PlasmidDB backup') do
   # Local (Copy) [Storage]
   #
   store_with Local do |local|
-    local.path       = "/groups/brennecke/apps/backups/lablife"
-    local.keep       = 5
+    local.path       = ENV['BACKUP_ROOT']
+    local.keep       = 1
   end
 
   ##
