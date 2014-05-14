@@ -55,7 +55,7 @@ before 'bundle:install', 'deploy:symlink_db'
 namespace :deploy do
   desc "Symlink database.yml"
   task :symlink_db, :roles => :app do
-    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml.org"
+    run "ln -nfs #{release_path}/config/database.yml.org #{release_path}/config/database.yml"
   end
 
   task :start do ; end
