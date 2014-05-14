@@ -1,12 +1,19 @@
+require 'yaml'
 require "rvm/capistrano"
 require "bundler/capistrano"
 require "sidekiq/capistrano"
 
-default_run_options[:env] = {'RAILS_ENV' => 'production'}
+raise "Tokens file is missing, can't deploy" unless File.exists?("config/tokens.yml")
+tokens = YAML.load(File.open("config/tokens.yml", &:read))
+
+default_run_options[:env] = {
+  "RAILS_ENV" => "production",
+  "ROLLBAR_ACCESS_TOKEN" => tokens["ROLLBAR_ACCESS_TOKEN"]
+}
 
 set :application, "lab_life"
 set :scm, :git
-set :repository,      "git@gitlab.com:djurczak/brelife.git"
+set :repository,      "git@github.com:djurczak/brelife.git"
 set :branch,          "master"
 set :migrate_target,  :current
 
