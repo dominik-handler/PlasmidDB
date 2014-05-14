@@ -1,0 +1,3 @@
+application_name: 'lablife-dev'
+sidekiq_redis_url: 'redis://localhost:6379/7'
+backup_root: '/vagrant'
