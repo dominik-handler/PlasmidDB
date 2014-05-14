@@ -92,6 +92,8 @@ GEM
     domain_name (0.5.14)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (0.9.0)
+    dotenv-rails (0.9.0)
+      dotenv (= 0.9.0)
     erubis (2.7.0)
     execjs (2.0.2)
     fastercsv (1.5.5)
@@ -318,6 +320,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   configuration
   devise
+  dotenv-rails
   fastercsv
   foreman
   formtastic-bootstrap

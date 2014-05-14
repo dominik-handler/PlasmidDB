@@ -88,3 +88,5 @@ gem 'sunspot_solr'
 gem 'sunspot_rails'
 ## solr uses progressbar
 gem 'progressbar'
+
+gem 'dotenv-rails'
