@@ -17,14 +17,14 @@ set :repository,      "git@github.com:djurczak/brelife.git"
 set :branch,          "master"
 set :migrate_target,  :current
 
-role :web, "maelstrom"                          # Your HTTP server, Apache/etc
-role :app, "maelstrom"                          # This may be the same as your `Web` server
-role :clockwork, "maelstrom"                          # This may be the same as your `Web` server
-role :sidekiq, "maelstrom"                          # This may be the same as your `Web` server
-role :db,  "maelstrom", :primary => true        # This is where Rails migrations will run
-role :solr, "maelstrom"                          # This may be the same as your `Web` server
+role :web, "maelstrom.imp.univie.ac.at"                          # Your HTTP server, Apache/etc
+role :app, "maelstrom.imp.univie.ac.at"                          # This may be the same as your `Web` server
+role :clockwork, "maelstrom.imp.univie.ac.at"                          # This may be the same as your `Web` server
+role :sidekiq, "maelstrom.imp.univie.ac.at"                          # This may be the same as your `Web` server
+role :db,  "maelstrom.imp.univie.ac.at", :primary => true        # This is where Rails migrations will run
+role :solr, "maelstrom.imp.univie.ac.at"                          # This may be the same as your `Web` server
 
-set :deploy_via, :remote_cache
+#set :deploy_via, :remote_cache
 set :use_sudo, false
 set :user, "lablife"
 set :deploy_to, "/home/lablife"
@@ -50,9 +50,12 @@ after "backups:restore", "sidekiq:start"
 after "backups:restore", "clockwork:start"
 after "backups:restore", "solr:hard_reindex"
 
+before 'bundle:install', 'deploy:symlink_db'
+
 namespace :deploy do
-  desc "Symlink shared/* files"
-  task :symlink_shared, :roles => :app do
+  desc "Symlink database.yml"
+  task :symlink_db, :roles => :app do
+    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml.org"
   end
 
   task :start do ; end
@@ -72,7 +75,6 @@ namespace :deploy do
       run "mkdir -p #{shared_path}/solr/#{path}"
     end
   end
-
 
   desc 'substituses current_path/solr/data and pids with symlinks to the shared dirs'
   task :link_to_solr_shared_dirs do
