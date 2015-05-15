@@ -19,3 +19,6 @@ Author.create!(:email => 'katharina.meixner@imba.oeaw.ac.at', :username => 'meix
 Author.create!(:email => 'martina.sykora@imba.oeaw.ac.at', :username => 'sykora', :password => 'none')
 Author.create!(:email => 'christopher.schmied@imba.oeaw.ac.at', :username => 'schmied', :password => 'none')
 Author.create!(:email => 'franz.gruber@imba.oeaw.ac.at', :username => 'gruber', :password => 'none')
+Author.create!(:email =>  'nehir.banaz@imba.oeaw.ac.at', :username => 'banaz', :password => 'none')
+Author.create!(:email =>  'laszlo.tirian@imba.oeaw.ac.at', :username => 'tirian', :password => 'none')
+Author.create!(:email =>  'daniel.olivieri@imba.oeaw.ac.at', :username => 'olivieri', :password => 'none')
