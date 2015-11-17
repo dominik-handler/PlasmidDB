@@ -39,5 +39,24 @@
       <%= render partial: "shared/flash_messages", flash: flash %>
       <%= yield %>
     </div>
+
+    <div class="navbar navbar-fixed-bottom navbar-default">
+      <div class="navbar-inner">
+        <div class="container text-center">
+
+          <ul class="nav" data-dynamite-selected="true">
+            <li>
+              <p class="navbar-text">LabLife v<%= LabLife::VERSION %></p>
+            </li>
+          </ul>
+
+          <ul class="nav" style="float:right;">
+            <li>
+              <p class="navbar-text navbar-text-right">Last update: <%= time_ago_in_words(File.mtime("lib/lab_life/version.rb")) %> ago</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
