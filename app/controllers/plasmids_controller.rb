@@ -68,7 +68,18 @@ class PlasmidsController < ApplicationController
         format.html { redirect_to @plasmid, notice: 'Plasmid was successfully updated.' }
         format.json { render :json => @plasmid, :status => :ok }
       else
-        format.html { render action: "edit" }
+        error_string = "Unknown error."
+        error_string = @plasmid.errors.messages.map { |k,v|
+          "#{k}: #{v.first}"
+        }.join("; ") unless @plasmid.errors.empty?
+
+        format.html {
+          redirect_to plasmid_path(@plasmid),
+          flash: {
+            error: "Plasmid could not be saved successfully: #{error_string}"
+          }
+        }
+
         format.json { render json: @plasmid.errors, status: :unprocessable_entity }
       end
     end
